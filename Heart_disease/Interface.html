@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Disease Prediction</title>
+  <style>
+    /* General Reset */
+    body, h1, form, input, label, button {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      color: #4CAF50;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 1em;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      font-size: 1.1em;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+    }
+    
+    /* Media Queries for smaller screens */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      button {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Heart Disease Prediction</h1>
+    <form action="{{ url_for('predict') }}" method="post">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="sex">Sex (1-Male, 0-Female):</label>
+      <input type="number" id="sex" name="sex" required>
+
+      <label for="cp">Chest Pain Type (0-Typical Angina, 1-Atypical Angina, 2-Non-Anginal Pain, 3-Asymptomatic):</label>
+      <input type="number" id="cp" name="cp" required>
+
+      <label for="trestbps">Resting Blood Pressure:</label>
+      <input type="number" id="trestbps" name="trestbps" required>
+
+      <label for="chol">Serum Cholesterol:</label>
+      <input type="number" id="chol" name="chol" required>
+
+      <label for="fbs">Fasting Blood Sugar (1 if >120 mg/dl, 0 otherwise):</label>
+      <input type="number" id="fbs" name="fbs" required>
+
+      <label for="restecg">Resting ECG (0-Normal, 1-ST-T Wave Abnormality, 2-Left Ventricular Hypertrophy):</label>
+      <input type="number" id="restecg" name="restecg" required>
+
+      <label for="thalach">Maximum Heart Rate Achieved:</label>
+      <input type="number" id="thalach" name="thalach" required>
+
+      <label for="exang">Exercise Induced Angina (1 = yes; 0 = no):</label>
+      <input type="number" id="exang" name="exang" required>
+
+      <label for="oldpeak">ST Depression Induced by Exercise Relative to Rest:</label>
+      <input type="number" step="0.1" id="oldpeak" name="oldpeak" required>
+
+      <label for="slope">Slope of the Peak Exercise ST Segment (1-Upsloping, 2-Flat, 3-Downsloping):</label>
+      <input type="number" id="slope" name="slope" required>
+
+      <label for="ca">Number of Major Vessels (0-3) Colored by Flourosopy:</label>
+      <input type="number" id="ca" name="ca" required>
+
+      <label for="thal">Thallium Stress Result (0-Normal, 1-Fixed Defect, 2-Reversable Defect):</label>
+      <input type="number" id="thal" name="thal" required>
+
+      <button type="submit">Predict</button>
+    </form>
+
+    <div class="result">
+      {{ prediction_text }}
+    </div>
+  </div>
+</body>
+</html>
